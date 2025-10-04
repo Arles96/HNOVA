@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  hnova-front:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: hnova-front-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - .env.dev
+    depends_on:
+      - mongodb
+    networks:
+      - hnova-network
+
+  mongodb:
+    image: mongo:latest
+    container_name: hnova-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin123
+      - MONGO_INITDB_DATABASE=hnova
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - hnova-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  hnova-network:
+    driver: bridge
