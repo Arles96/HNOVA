@@ -7,8 +7,9 @@ import { Card } from "@/components/ui/card"
 import { Nav } from "@/components/nav"
 import { Footer } from "@/components/footer"
 import { StarfieldBg } from "@/components/starfield-bg"
-import { RotatingPlanet } from "@/components/rotating-planet"
+// import { RotatingPlanet } from "@/components/rotating-planet"
 import { ArrowRight, Cpu, Database, Zap, Target, TrendingUp, CheckCircle2 } from "lucide-react"
+import { Earth } from "@/components/eart"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -81,10 +82,12 @@ export default function Home() {
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.8 }}
               className="relative h-[400px] lg:h-[500px]"
+              style={{overflowX: 'hidden'}}
             >
-              <div className="absolute inset-0 flex items-center justify-center">
+              {/* <div className="absolute inset-0 flex items-center justify-center">
                 <RotatingPlanet />
-              </div>
+              </div> */}
+              <Earth />
             </motion.div>
           </div>
         </section>
