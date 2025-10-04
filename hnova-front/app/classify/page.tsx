@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 export default function ClassifyPage() {
   const router = useRouter()
 
-  const handleClassificationComplete = (data: any) => {
+  const handleClassificationComplete = (data: unknown) => {
     // Store result and navigate to results page
     if (typeof window !== "undefined") {
       sessionStorage.setItem("latestResult", JSON.stringify(data))

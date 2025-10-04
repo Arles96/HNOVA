@@ -7,7 +7,7 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Upload, FileText, X, Loader2, Info } from "lucide-react"
-import { useToast } from "@/hooks/use-toast"
+// import { useToast } from "@/hooks/use-toast"
 import {
   Dialog,
   DialogContent,
@@ -18,13 +18,13 @@ import {
 } from "@/components/ui/dialog"
 
 interface CsvUploadCardProps {
-  onSubmit: (data: any) => void
+  onSubmit: (data: unknown) => void
 }
 
 export function CsvUploadCard({ onSubmit }: CsvUploadCardProps) {
-  const { toast } = useToast()
+  // const { toast } = useToast()
   const [file, setFile] = useState<File | null>(null)
-  const [preview, setPreview] = useState<any[]>([])
+  const [preview, setPreview] = useState<{planet_name: string, prediction: string, confidence: string,}[]>([])
   const [loading, setLoading] = useState(false)
   const [dragActive, setDragActive] = useState(false)
 
@@ -57,11 +57,11 @@ export function CsvUploadCard({ onSubmit }: CsvUploadCardProps) {
 
   const handleFile = (file: File) => {
     if (!file.name.endsWith(".csv")) {
-      toast({
+      /* toast({
         title: "Invalid File",
         description: "Please upload a CSV file",
         variant: "destructive",
-      })
+      }) */
       return
     }
 
@@ -69,12 +69,12 @@ export function CsvUploadCard({ onSubmit }: CsvUploadCardProps) {
 
     // Parse CSV for preview
     const reader = new FileReader()
-    reader.onload = (e) => {
-      const text = e.target?.result as string
-      const lines = text.split("\n").filter((line) => line.trim())
-      const headers = lines[0].split(",")
+    // reader.onload = (e) => {
+      // const text = e.target?.result as string
+      // const lines = text.split("\n").filter((line) => line.trim())
+      // const headers = lines[0].split(",")
 
-      const previewData = lines.slice(1, 6).map((line) => {
+      /* const previewData = lines.slice(1, 6).map((line) => {
         const values = line.split(",")
         return headers.reduce(
           (obj, header, index) => {
@@ -83,10 +83,10 @@ export function CsvUploadCard({ onSubmit }: CsvUploadCardProps) {
           },
           {} as Record<string, string>,
         )
-      })
+      }) */
 
-      setPreview(previewData)
-    }
+      // setPreview(previewData)
+    // }
     reader.readAsText(file)
   }
 
@@ -103,15 +103,14 @@ export function CsvUploadCard({ onSubmit }: CsvUploadCardProps) {
       planetName: row.planet_name || "Unknown",
       prediction: Math.random() > 0.5 ? "Habitable" : "Not Habitable",
       confidence: (Math.random() * 30 + 70).toFixed(1),
-      inputs: row,
     }))
 
     setLoading(false)
 
-    toast({
+    /* toast({
       title: "Processing Complete",
       description: `Classified ${results.length} planets`,
-    })
+    }) */
 
     // For now, just show the first result
     onSubmit({
@@ -212,7 +211,7 @@ HN-001,1.00,1.00,288,G,365.2,1.0,1.00`}
                     <tbody>
                       {preview.map((row, index) => (
                         <tr key={index} className="border-b border-border/50">
-                          {Object.values(row).map((value: any, i) => (
+                          {Object.values(row).map((value, i) => (
                             <td key={i} className="p-2">
                               {value}
                             </td>

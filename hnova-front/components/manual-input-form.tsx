@@ -10,14 +10,14 @@ import { Label } from "@/components/ui/label"
 import { Card } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Loader2, Sparkles } from "lucide-react"
-import { useToast } from "@/hooks/use-toast"
+/* import { useToast } from "@/hooks/use-toast" */
 
 interface ManualInputFormProps {
-  onSubmit: (data: any) => void
+  onSubmit: (data: unknown) => void
 }
 
 export function ManualInputForm({ onSubmit }: ManualInputFormProps) {
-  const { toast } = useToast()
+  /* const { toast } = useToast() */
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     planetName: "",
@@ -56,11 +56,11 @@ export function ManualInputForm({ onSubmit }: ManualInputFormProps) {
     e.preventDefault()
 
     if (!validateForm()) {
-      toast({
+      /* toast({
         title: "Validation Error",
         description: "Please fill in all fields correctly",
         variant: "destructive",
-      })
+      }) */
       return
     }
 
@@ -83,10 +83,10 @@ export function ManualInputForm({ onSubmit }: ManualInputFormProps) {
 
     setLoading(false)
 
-    toast({
+    /* toast({
       title: "Classification Complete",
       description: `${formData.planetName} classified as ${result.prediction}`,
-    })
+    }) */
 
     onSubmit(result)
   }

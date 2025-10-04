@@ -1,22 +1,28 @@
 "use client"
 
 import { useEffect, useRef, Suspense } from "react"
-import dynamic from "next/dynamic"
-
-const Globe = dynamic(() => import("react-globe.gl"), { ssr: false })
+import Globe, { GlobeMethods } from "react-globe.gl"
 
 interface PlanetVisualizationProps {
   isHabitable: boolean
 }
 
 export function PlanetVisualization({ isHabitable }: PlanetVisualizationProps) {
-  const globeEl = useRef<any>()
+  const globeEl = useRef<GlobeMethods | undefined>(undefined);
 
   useEffect(() => {
-    if (globeEl.current) {
-      // Auto-rotate
-      globeEl.current.controls().autoRotate = true
-      globeEl.current.controls().autoRotateSpeed = 0.5
+    if (!globeEl.current) return;
+
+    const controls = globeEl.current.controls();
+    if (controls) {
+      // Rotación automática
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 2;
+
+      // Desactivar interacción del mouse
+      controls.enableZoom = false;
+      controls.enableRotate = false;
+      controls.enablePan = false;
     }
   }, [])
 

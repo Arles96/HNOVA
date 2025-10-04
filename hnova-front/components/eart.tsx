@@ -5,7 +5,7 @@ import Globe, { GlobeMethods } from "react-globe.gl";
 
 
 export function Earth() {
-  const globeEl = useRef<GlobeMethods | null>(null);
+  const globeEl = useRef<GlobeMethods | undefined>(undefined);
 
   useEffect(() => {
     if (!globeEl.current) return;

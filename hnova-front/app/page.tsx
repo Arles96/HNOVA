@@ -6,10 +6,9 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Nav } from "@/components/nav"
 import { Footer } from "@/components/footer"
-import { StarfieldBg } from "@/components/starfield-bg"
+import dynamic from "next/dynamic"
 // import { RotatingPlanet } from "@/components/rotating-planet"
 import { ArrowRight, Cpu, Database, Zap, Target, TrendingUp, CheckCircle2 } from "lucide-react"
-import { Earth } from "@/components/eart"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -31,6 +30,16 @@ const itemVariants = {
     },
   },
 }
+
+// 👉 Cargas diferidas sin SSR
+const StarfieldBg = dynamic(
+  () => import("@/components/starfield-bg").then(m => m.StarfieldBg),
+  { ssr: false }
+)
+const Earth = dynamic(
+  () => import("@/components/eart").then(m => m.Earth),
+  { ssr: false }
+)
 
 export default function Home() {
   return (
