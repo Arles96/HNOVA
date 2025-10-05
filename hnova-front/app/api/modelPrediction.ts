@@ -20,8 +20,26 @@ export const modelPrediction = async (instances: IExoplanetData[]) => {
   console.log(JSON.stringify(instances, null, 2));
 
   try {
+    // Convert IExoplanetData to IValue format
+    const formattedInstances = instances.map((data: IExoplanetData) => ({
+      structValue: {
+        fields: Object.entries(data).reduce((acc, [key, value]) => {
+          if (typeof value === 'number') {
+            acc[key] = { numberValue: value };
+          } else if (typeof value === 'string') {
+            acc[key] = { stringValue: value };
+          } else if (typeof value === 'boolean') {
+            acc[key] = { boolValue: value };
+          } else if (value === null) {
+            acc[key] = { nullValue: 0 };
+          }
+          return acc;
+        }, {} as Record<string, any>)
+      }
+    }));
+
     // Make the prediction
-    const response = await client.predict({endpoint, instances });
+    const response = await client.predict({ endpoint, instances: formattedInstances });
     console.log(JSON.stringify(response, null, 2));
     return [];
   } catch (error) {
