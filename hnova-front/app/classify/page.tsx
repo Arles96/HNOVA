@@ -4,9 +4,7 @@ import { useRouter } from "next/navigation"
 import { Nav } from "@/components/nav"
 import { Footer } from "@/components/footer"
 import { StarfieldBg } from "@/components/starfield-bg"
-import { ManualInputForm } from "@/components/manual-input-form"
 import { CsvUploadCard } from "@/components/csv-upload-card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function ClassifyPage() {
   const router = useRouter()
@@ -16,7 +14,7 @@ export default function ClassifyPage() {
     if (typeof window !== "undefined") {
       sessionStorage.setItem("latestResult", JSON.stringify(data))
     }
-    router.push("/results")
+    router.push("/projects")
   }
 
   return (
@@ -38,25 +36,10 @@ export default function ClassifyPage() {
                 Classify an <span className="text-primary">Exoplanet</span>
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Enter planetary parameters manually or upload a CSV file to classify habitability
+                Upload a CSV file to classify habitability
               </p>
             </div>
-
-            {/* Input Methods */}
-            <Tabs defaultValue="manual" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 glass-panel">
-                <TabsTrigger value="manual">Manual Input</TabsTrigger>
-                <TabsTrigger value="csv">CSV Upload</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="manual" className="mt-6">
-                <ManualInputForm onSubmit={handleClassificationComplete} />
-              </TabsContent>
-
-              <TabsContent value="csv" className="mt-6">
-                <CsvUploadCard onSubmit={handleClassificationComplete} />
-              </TabsContent>
-            </Tabs>
+            <CsvUploadCard onSubmit={handleClassificationComplete} />
           </motion.div>
         </div>
       </main>
