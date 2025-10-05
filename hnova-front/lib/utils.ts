@@ -7,8 +7,16 @@ export function cn(...inputs: ClassValue[]) {
 
 export interface IExoplanetData {
   _id?: string;
-  hostId?: string;
+  projectId?: string;
+
+  // returned by ai model
   isExoplanet?: boolean;
+  percentage?: number;
+  
+  // user feedback
+  feedbackIsPlanet?: boolean;
+  
+  hostId?: string;
   hostName?: string;
   k2Id?: string;
   kepoiName?: string;
@@ -89,7 +97,6 @@ export interface IExoplanetData {
   modelSnr?: number;
   tcePlanetNumber?: number;
   
-  percentage?: number
   timestamp?: string
 }
 

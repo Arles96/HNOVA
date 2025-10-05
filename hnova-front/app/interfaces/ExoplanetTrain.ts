@@ -1,4 +1,4 @@
-interface ExoplanetData {
+interface ExoplanetTrainData {
   // Unified ID/Name fields (e.g., kepid = epic_id = tic_id → hostId; kepler_name = pl_name → planetName)
   hostId?: string;  // Unified host star ID (e.g., kepid, epic_id, tic_id)
   isExoplanet?: boolean;  // Boolean: true if confirmed exoplanet (derived from dispositions like koi_disposition, disposition, k2c_disp)
