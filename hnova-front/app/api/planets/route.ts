@@ -4,7 +4,7 @@ import Exoplanet from '@/app/models/Exoplanet';
 import ProjectModel from '@/app/models/Project';
 import { IExoplanetData, IProject } from '@/lib/utils';
 
-export const modelPrediction = async (data: IExoplanetData[]) => {
+const modelPrediction = async (data: IExoplanetData[]) => {
   return new Promise<IExoplanetData[]>((resolve) => {
     setTimeout(() => {
       const result = data.map((item) => {
