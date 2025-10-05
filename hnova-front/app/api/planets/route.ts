@@ -7,10 +7,13 @@ import { modelPrediction } from '../modelPrediction';
 
 export async function POST(req: NextRequest) {
   try {
+    console.log('start');
     await connectDB();
 
-    const body: IProject = await req.json();
+    console.log('db');
 
+    const body: IProject = await req.json();
+    
     // First, create the project and get its _id
     const project = await ProjectModel.create({
       projectName: body.projectName,
@@ -23,7 +26,9 @@ export async function POST(req: NextRequest) {
     let exoplanetResult;
     let count = 0;
 
+    console.log('predictions');
     const resultData: IExoplanetData[] = await modelPrediction(body.results);
+    console.log('predictions end');
 
     const exoplanetData = resultData.map((item) => ({
       ...item,
