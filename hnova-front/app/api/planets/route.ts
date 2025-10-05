@@ -3,57 +3,51 @@ import connectDB from '@/lib/mongoose';
 import Exoplanet, { ExoplanetData } from '@/lib/Exoplanet';
 import ProjectModel from '@/lib/Project';
 import { IExoplanetData, IProject } from '@/lib/utils';
-
-const modelPrediction = async (data: IExoplanetData[]) => {
-  return new Promise<IExoplanetData[]>((resolve) => {
-    setTimeout(() => {
-      const result = data.map((item) => {
-        const newData: IExoplanetData = {
-          ...item,
-          projectId: `${Math.random()}`,
-          isExoplanet: Math.random() > 0.5,
-          percentage: Math.random() * 100,
-        };
-        return newData;
-      });
-      resolve(result);
-    }, 100);
-  });
-}
+import { modelPrediction } from '../modelPrediction';
 
 export async function POST(req: NextRequest) {
   try {
+    console.log('start');
     await connectDB();
 
-    const body: IProject = await req.json();
+    console.log('db');
 
+    const body: IProject = await req.json();
+    
     // First, create the project and get its _id
     const project = await ProjectModel.create({
       projectName: body.projectName,
       email: body.email,
     });
 
-    const projectId = project._id;
+    const projectId = `${project._id}`;
 
     // Then, insert each result from payload.results into Exoplanet
     let exoplanetResult;
     let count = 0;
 
-    const resultData: IExoplanetData[] = await modelPrediction(body.results);
-
-    const exoplanetData = resultData.map((item) => ({
+    const formattedData: IExoplanetData[] = body.results.map((item) => ({
       ...item,
       projectId,
     }));
 
-    exoplanetResult = await Exoplanet.insertMany(exoplanetData);
+    console.log('predictions');
+    const resultData: IExoplanetData[] | undefined = await modelPrediction(formattedData);
+    console.log('predictions end');
+
+    const exoplanetData = resultData?.map((item) => ({
+      ...item,
+      projectId,
+    }));
+
+    exoplanetResult = await Exoplanet.insertMany(exoplanetData || []);
     count = exoplanetResult.length;
 
     const response: IProject = {
       _id: project._id.toString(),
       projectName: body.projectName,
       email: body.email,
-      results: resultData,
+      results: resultData || [],
       timestamp: project.timestamp?.toISOString(),
     }
 
@@ -88,7 +82,7 @@ export async function GET(req: NextRequest) {
       query.projectId = projectId;
       queryProject._id = projectId
     }
-    
+
     if (planetId) {
       query._id = planetId;
     }
@@ -106,6 +100,39 @@ export async function GET(req: NextRequest) {
       data: {
         projects,
         exoplanets,
+      },
+    }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error: error instanceof Error ? error.message : 'Failed to fetch exoplanet data'
+      },
+      { status: 400 }
+    );
+  }
+}
+
+export async function PATCH(req: NextRequest) {
+  try {
+    await connectDB();
+
+    const { feedbackIsPlanet }: { feedbackIsPlanet: boolean } = await req.json();
+    const { searchParams } = new URL(req.url);
+    const planetId = searchParams.get('planetId');
+
+    const query: any = {};
+
+    if (planetId) {
+      query._id = planetId;
+    }
+
+    const exoplanet = await Exoplanet.findOneAndUpdate(query, { feedbackIsPlanet });
+
+    return NextResponse.json({
+      ok: true,
+      data: {
+        exoplanet,
       },
     }, { status: 200 });
   } catch (error) {
