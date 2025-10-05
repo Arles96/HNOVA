@@ -9,11 +9,8 @@ import { StarfieldBg } from "@/components/starfield-bg"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Search, Download, Eye, Filter, Calendar } from "lucide-react"
+import { Search, Eye } from "lucide-react"
 import Link from "next/link"
-import { MiniPlanet } from "@/components/mini-planet"
 import { IProject } from "@/lib/utils"
 
 export default function ProjectPage() {
@@ -150,8 +147,7 @@ export default function ProjectPage() {
                               variant="ghost"
                               className="gap-2 hover:text-primary"
                               onClick={() => {
-                                sessionStorage.setItem("latestResult", JSON.stringify(item))
-                                window.location.href = "/results"
+                                window.location.href = `/projects/${item._id}`
                               }}
                             >
                               <Eye className="w-4 h-4" />

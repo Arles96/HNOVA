@@ -6,6 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export interface IExoplanetData {
+  _id?: string;
   hostId?: string;
   isExoplanet?: boolean;
   hostName?: string;
@@ -87,6 +88,9 @@ export interface IExoplanetData {
   dispositionScore?: number;
   modelSnr?: number;
   tcePlanetNumber?: number;
+  
+  percentage?: number
+  timestamp?: string
 }
 
 export const CSV_FIELD_CATEGORIES = [
@@ -316,10 +320,9 @@ export enum ExoplanetFieldEnum {
 }
 
 export interface IProject {
+  _id?: string;
   projectName: string
   email: string
-  results: IExoplanetData
+  results: IExoplanetData[]
   timestamp?: string
 }
-
-

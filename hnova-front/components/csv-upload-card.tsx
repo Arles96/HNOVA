@@ -8,11 +8,12 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Upload, FileText, X, Loader2, ChevronDown, ChevronUp } from "lucide-react"
-import { CSV_FIELD_CATEGORIES, IExoplanetData } from "@/lib/utils"
+import { CSV_FIELD_CATEGORIES, IExoplanetData, IProject } from "@/lib/utils"
 import { resultsCsv } from "@/lib/csv"
+import {v4 as uuidv4 } from 'uuid'
 
 interface CsvUploadCardProps {
-  onSubmit: (data: unknown) => void
+  onSubmit: (data: IProject) => void
 }
 
 interface IformData {
@@ -123,7 +124,12 @@ export function CsvUploadCard({ onSubmit }: CsvUploadCardProps) {
     await new Promise((resolve) => setTimeout(resolve, 2500))
 
     // Mock results
-    const results = preview
+    const results = preview.map((item, i) => ({
+      ...item,
+      percentage: 90,
+      isExoplanet: i % 2 === 0,
+      _id: uuidv4()
+    }))
 
     setLoading(false)
 
@@ -131,6 +137,7 @@ export function CsvUploadCard({ onSubmit }: CsvUploadCardProps) {
       title: "Processing Complete",
       description: `Classified ${results.length} planets`,
     }) */
+   
 
     // For now, just show the first result
     onSubmit({

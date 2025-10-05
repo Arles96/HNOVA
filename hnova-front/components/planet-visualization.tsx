@@ -21,10 +21,29 @@ export function PlanetVisualization({ isHabitable }: PlanetVisualizationProps) {
 
       // Desactivar interacción del mouse
       controls.enableZoom = false;
-      controls.enableRotate = false;
+      controls.enableRotate = true;
       controls.enablePan = false;
     }
   }, [])
+
+  // Generar una textura roja
+  const redTexture = (() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = 64;
+    const ctx = canvas.getContext("2d")!;
+    ctx.fillStyle = "#D53C37"; // rojo
+    ctx.fillRect(0, 0, 64, 64);
+    return canvas.toDataURL();
+  })();
+
+  const grennTexture = (() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = 64;
+    const ctx = canvas.getContext("2d")!;
+    ctx.fillStyle = "#96D9BD"; // verde
+    ctx.fillRect(0, 0, 64, 64);
+    return canvas.toDataURL();
+  })(); 
 
   return (
     <div className="relative w-full h-[500px] rounded-lg overflow-hidden">
@@ -39,12 +58,12 @@ export function PlanetVisualization({ isHabitable }: PlanetVisualizationProps) {
           ref={globeEl}
           globeImageUrl={
             isHabitable
-              ? "//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
-              : "//unpkg.com/three-globe/example/img/earth-night.jpg"
+              ? grennTexture
+              : redTexture
           }
           bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
           backgroundColor="rgba(0,0,0,0)"
-          atmosphereColor={isHabitable ? "#4ade80" : "#ef4444"}
+          atmosphereColor={isHabitable ? "#96D9BD" : "#D53C37"}
           atmosphereAltitude={0.25}
           width={500}
           height={500}
