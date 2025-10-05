@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/app/lib/mongoose';
 import Exoplanet, { ExoplanetData } from '@/app/models/Exoplanet';
 import ProjectModel, { Project } from '@/app/models/Project';
+import { IProject } from '@/lib/utils';
 
 export async function POST(req: NextRequest) {
   try {
@@ -14,7 +15,6 @@ export async function POST(req: NextRequest) {
       projectName: body.projectName,
       email: body.email,
       results: body.results,
-      timestamp: body.timestamp,
     });
 
     const projectId = project._id;
@@ -29,6 +29,13 @@ export async function POST(req: NextRequest) {
     } else {
       exoplanetResult = await Exoplanet.create(body.results);
       count = 1;
+    }
+
+    const response: IProject = {
+      projectName: body.projectName,
+      email: body.email,
+      results: body.results,
+      timestamp: new Date(),
     }
 
     return NextResponse.json({

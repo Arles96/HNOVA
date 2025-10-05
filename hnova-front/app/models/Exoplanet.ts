@@ -2,9 +2,13 @@ import mongoose, { Schema, Model } from 'mongoose';
 
 interface ExoplanetData {
   projectId: string;
-
-  hostId?: string;
+  
   isExoplanet?: boolean;
+  percentage?: number;
+
+  feedbackIsPlanet?: boolean;
+  
+  hostId?: string;
   hostName?: string;
   k2Id?: string;
   kepoiName?: string;

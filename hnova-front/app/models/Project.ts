@@ -5,13 +5,13 @@ interface Project {
   projectName: string;
   email: string;
   results?: ExoplanetData;
-  timestamp?: string;
+  timestamp?: Date;
 }
 
 const ProjectSchema = new Schema<Project>({
   projectName: { type: String, required: true },
   email: { type: String, required: true },
-  timestamp: { type: String },
+  timestamp: { type: Date, default: Date.now },
 }, { 
   collection: 'projects',
   timestamps: true 
