@@ -1,6 +1,8 @@
 import mongoose, { Schema, Model } from 'mongoose';
 
 interface ExoplanetData {
+  projectId: string;
+
   hostId?: string;
   isExoplanet?: boolean;
   hostName?: string;
