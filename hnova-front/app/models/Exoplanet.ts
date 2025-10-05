@@ -2,12 +2,14 @@ import mongoose, { Schema, Model } from 'mongoose';
 
 interface ExoplanetData {
   projectId: string;
-  
+
+  // returned by ai model
   isExoplanet?: boolean;
   percentage?: number;
 
+  // user feedback
   feedbackIsPlanet?: boolean;
-  
+
   hostId?: string;
   hostName?: string;
   k2Id?: string;
@@ -91,8 +93,16 @@ interface ExoplanetData {
 }
 
 const ExoplanetSchema = new Schema<ExoplanetData>({
-  hostId: { type: String },
+  projectId: { type: String },
+
+  // returned by ai model
   isExoplanet: { type: Boolean },
+  percentage: { type: Number },
+
+  // user feedback
+  feedbackIsPlanet: { type: Boolean },
+
+  hostId: { type: String },
   hostName: { type: String },
   k2Id: { type: String },
   kepoiName: { type: String },
@@ -172,9 +182,9 @@ const ExoplanetSchema = new Schema<ExoplanetData>({
   dispositionScore: { type: Number },
   modelSnr: { type: Number },
   tcePlanetNumber: { type: Number },
-}, { 
+}, {
   collection: 'exoplanets',
-  timestamps: true 
+  timestamps: true
 });
 
 // Prevent model recompilation in Next.js hot reload

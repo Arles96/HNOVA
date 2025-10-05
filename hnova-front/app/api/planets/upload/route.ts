@@ -1,20 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/app/lib/mongoose';
-import Exoplanet, { ExoplanetData } from '@/app/models/Exoplanet';
-import ProjectModel, { Project } from '@/app/models/Project';
-import { IProject } from '@/lib/utils';
+import Exoplanet from '@/app/models/Exoplanet';
+import ProjectModel from '@/app/models/Project';
+import { IExoplanetData, IProject } from '@/lib/utils';
+import { modelPrediction } from '../modelPrediction';
 
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
 
-    const body: Project = await req.json();
+    const body: IProject = await req.json();
 
     // First, create the project and get its _id
     const project = await ProjectModel.create({
       projectName: body.projectName,
       email: body.email,
-      results: body.results,
     });
 
     const projectId = project._id;
@@ -23,26 +23,27 @@ export async function POST(req: NextRequest) {
     let exoplanetResult;
     let count = 0;
 
-    if (Array.isArray(body.results)) {
-      exoplanetResult = await Exoplanet.insertMany(body.results);
-      count = exoplanetResult.length;
-    } else {
-      exoplanetResult = await Exoplanet.create(body.results);
-      count = 1;
-    }
+    const resultData: IExoplanetData[] = await modelPrediction(body.results);
+
+    const exoplanetData = resultData.map((item) => ({
+      ...item,
+      projectId,
+    }));
+
+    exoplanetResult = await Exoplanet.insertMany(exoplanetData);
+    count = exoplanetResult.length;
 
     const response: IProject = {
       projectName: body.projectName,
       email: body.email,
-      results: body.results,
-      timestamp: new Date(),
+      results: resultData,
+      timestamp: project.timestamp?.toISOString(),
     }
 
     return NextResponse.json({
       ok: true,
       message: `Successfully created project and inserted ${count} exoplanet${count > 1 ? 's' : ''}`,
-      projectId: projectId,
-      exoplanetData: exoplanetResult
+      data: response,
     }, { status: 201 });
   } catch (error) {
     return NextResponse.json(

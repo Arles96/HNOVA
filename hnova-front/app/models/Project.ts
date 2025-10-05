@@ -1,10 +1,8 @@
 import mongoose, { Schema, Model } from 'mongoose';
-import { ExoplanetData } from './Exoplanet';
 
 interface Project {
   projectName: string;
   email: string;
-  results?: ExoplanetData;
   timestamp?: Date;
 }
 

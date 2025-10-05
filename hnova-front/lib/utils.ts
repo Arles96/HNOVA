@@ -6,8 +6,16 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export interface IExoplanetData {
-  hostId?: string;
+  projectId?: string;
+
+  // returned by ai model
   isExoplanet?: boolean;
+  percentage?: number;
+
+  // user feedback
+  feedbackIsPlanet?: boolean;
+
+  hostId?: string;
   hostName?: string;
   k2Id?: string;
   kepoiName?: string;
@@ -318,7 +326,7 @@ export enum ExoplanetFieldEnum {
 export interface IProject {
   projectName: string
   email: string
-  results: IExoplanetData
+  results: IExoplanetData[]
   timestamp?: string
 }
 
