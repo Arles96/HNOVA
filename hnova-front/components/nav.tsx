@@ -27,7 +27,7 @@ export function Nav() {
           <Link href="/classify" className="text-muted-foreground hover:text-foreground transition-colors">
             Classify
           </Link>
-          <Link href="/results" className="text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/projects" className="text-muted-foreground hover:text-foreground transition-colors">
             Results
           </Link>
         </div>
