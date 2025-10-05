@@ -3,7 +3,23 @@ import connectDB from '@/app/lib/mongoose';
 import Exoplanet from '@/app/models/Exoplanet';
 import ProjectModel from '@/app/models/Project';
 import { IExoplanetData, IProject } from '@/lib/utils';
-import { modelPrediction } from '../modelPrediction';
+
+export const modelPrediction = async (data: IExoplanetData[]) => {
+  return new Promise<IExoplanetData[]>((resolve) => {
+    setTimeout(() => {
+      const result = data.map((item) => {
+        const newData: IExoplanetData = {
+          ...item,
+          projectId: `${Math.random()}`,
+          isExoplanet: Math.random() > 0.5,
+          percentage: Math.random() * 100,
+        };
+        return newData;
+      });
+      resolve(result);
+    }, 100);
+  });
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -50,6 +66,27 @@ export async function POST(req: NextRequest) {
       {
         ok: false,
         error: error instanceof Error ? error.message : 'Failed to insert project and exoplanet data'
+      },
+      { status: 400 }
+    );
+  }
+}
+
+export async function GET(req: NextRequest) {
+  try {
+    await connectDB();
+
+    const exoplanets = await Exoplanet.find();
+
+    return NextResponse.json({
+      ok: true,
+      data: exoplanets,
+    }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error: error instanceof Error ? error.message : 'Failed to fetch exoplanet data'
       },
       { status: 400 }
     );
