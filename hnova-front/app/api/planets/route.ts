@@ -81,11 +81,11 @@ export async function GET(req: NextRequest) {
     const planetId = searchParams.get('planetId');
 
     const query: any = {};
-    
+
     if (projectId) {
       query.projectId = projectId;
     }
-    
+
     if (planetId) {
       query._id = planetId;
     }
@@ -98,6 +98,39 @@ export async function GET(req: NextRequest) {
       data: {
         project,
         exoplanets,
+      },
+    }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error: error instanceof Error ? error.message : 'Failed to fetch exoplanet data'
+      },
+      { status: 400 }
+    );
+  }
+}
+
+export async function PATCH(req: NextRequest) {
+  try {
+    await connectDB();
+
+    const { feedbackIsPlanet }: { feedbackIsPlanet: boolean } = await req.json();
+    const { searchParams } = new URL(req.url);
+    const planetId = searchParams.get('planetId');
+
+    const query: any = {};
+
+    if (planetId) {
+      query._id = planetId;
+    }
+
+    const exoplanet = await Exoplanet.findOneAndUpdate(query, { feedbackIsPlanet });
+
+    return NextResponse.json({
+      ok: true,
+      data: {
+        exoplanet,
       },
     }, { status: 200 });
   } catch (error) {
