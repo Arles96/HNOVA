@@ -5,14 +5,23 @@ import { Nav } from "@/components/nav"
 import { Footer } from "@/components/footer"
 import { StarfieldBg } from "@/components/starfield-bg"
 import { CsvUploadCard } from "@/components/csv-upload-card"
+import { IProject } from "@/lib/utils"
+import { v4 as uuidv4 } from 'uuid'
 
 export default function ClassifyPage() {
   const router = useRouter()
 
-  const handleClassificationComplete = (data: unknown) => {
+  const handleClassificationComplete = (data: IProject) => {
     // Store result and navigate to results page
     if (typeof window !== "undefined") {
-      sessionStorage.setItem("latestResult", JSON.stringify(data))
+      let local = localStorage.getItem('planetArchive')
+      let array = []
+      if (local) {
+        array = JSON.parse(local)
+      }
+      data._id = uuidv4()
+      array.push(data)
+      localStorage.setItem("planetArchive", JSON.stringify(array))
     }
     router.push("/projects")
   }
