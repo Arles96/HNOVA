@@ -76,11 +76,29 @@ export async function GET(req: NextRequest) {
   try {
     await connectDB();
 
-    const exoplanets = await Exoplanet.find();
+    const { searchParams } = new URL(req.url);
+    const projectId = searchParams.get('projectId');
+    const planetId = searchParams.get('planetId');
+
+    const query: any = {};
+    
+    if (projectId) {
+      query.projectId = projectId;
+    }
+    
+    if (planetId) {
+      query._id = planetId;
+    }
+
+    const exoplanets = await Exoplanet.find(query);
+    const project = await ProjectModel.findOne({ _id: projectId });
 
     return NextResponse.json({
       ok: true,
-      data: exoplanets,
+      data: {
+        project,
+        exoplanets,
+      },
     }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
