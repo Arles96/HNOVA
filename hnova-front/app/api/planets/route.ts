@@ -7,10 +7,7 @@ import { modelPrediction } from '../modelPrediction';
 
 export async function POST(req: NextRequest) {
   try {
-    console.log('start');
     await connectDB();
-
-    console.log('db');
 
     const body: IProject = await req.json();
     
@@ -31,9 +28,7 @@ export async function POST(req: NextRequest) {
       projectId,
     }));
 
-    console.log('predictions');
     const resultData: IExoplanetData[] | undefined = await modelPrediction(formattedData);
-    console.log('predictions end');
 
     const exoplanetData = resultData?.map((item) => ({
       ...item,

@@ -38,6 +38,11 @@ export default function ResultsPage({params}: ResultsPageProps) {
       const {data}: {data: {projects: IProject[], exoplanets: IExoplanetData[]}} = await response.json()
       const [project2] = data.projects
       const [planet] = data.exoplanets
+      if (planet.feedbackIsPlanet === true) {
+        setFeedback('correct')
+      } else if (planet.feedbackIsPlanet === false) {
+        setFeedback('incorrect')
+      }
       setProject(project2)
       setResult(planet)
     } catch (error) {
@@ -49,9 +54,23 @@ export default function ResultsPage({params}: ResultsPageProps) {
     handleData()
   }, [])
 
-  const handleFeedback = (isCorrect: boolean) => {
-    setFeedback(isCorrect ? "correct" : "incorrect")
-    console.log("[v0] User feedback:", isCorrect ? "Correct" : "Incorrect")
+  const handleFeedback = async (isCorrect: boolean) => {
+    try {
+      setFeedback(isCorrect ? "correct" : "incorrect")
+      const search = new URLSearchParams()
+      search.append('planetId', result?._id || '')
+      await fetch(`/api/planets?${search}`, {
+        method: 'PATCH',
+        body: {
+          // @ts-ignore
+          feedbackIsPlanet: isCorrect,
+        }
+      })
+      toastr.success('Success')
+      handleData()
+    } catch (error) {
+      toastr.error('Error to send feedback.')
+    }
   }
 
   if (!result || !project) {
