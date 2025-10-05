@@ -32,7 +32,6 @@ export default function ResultsPage() {
       const archive = JSON.parse(localStorage.getItem("planetArchive") || "[]")
       const newResult = JSON.parse(stored)
       archive.unshift(newResult)
-      localStorage.setItem("planetArchive", JSON.stringify(archive.slice(0, 50)))
     }
   }, [])
 
