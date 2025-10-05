@@ -6,24 +6,28 @@ import { Footer } from "@/components/footer"
 import { StarfieldBg } from "@/components/starfield-bg"
 import { CsvUploadCard } from "@/components/csv-upload-card"
 import { IProject } from "@/lib/utils"
-import { v4 as uuidv4 } from 'uuid'
+import toastr from "toastr"
 
 export default function ClassifyPage() {
   const router = useRouter()
 
-  const handleClassificationComplete = (data: IProject) => {
+  const handleClassificationComplete = async (data: IProject) => {
     // Store result and navigate to results page
-    if (typeof window !== "undefined") {
-      let local = localStorage.getItem('planetArchive')
-      let array = []
-      if (local) {
-        array = JSON.parse(local)
-      }
-      data._id = uuidv4()
-      array.push(data)
-      localStorage.setItem("planetArchive", JSON.stringify(array))
+    try {
+      const response = await fetch('/api/planets', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+      })
+      const dataServer: {data: IProject} = await response.json()
+      router.push(`/projects/${dataServer.data._id}`)
+      toastr.success('The planet was successfully analyzed, here you can see the results.')
+      return
+    } catch (error) {
+      toastr.error('Error to classify exoplanet')
     }
-    router.push("/projects")
   }
 
   return (

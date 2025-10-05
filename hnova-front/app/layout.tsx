@@ -5,6 +5,7 @@ import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import "./globals.css"
+import "toastr/build/toastr.min.css"
 
 export const metadata: Metadata = {
   title: "HNOVA - AI-Powered Exoplanet Habitability",

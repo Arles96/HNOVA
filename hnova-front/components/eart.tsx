@@ -1,11 +1,14 @@
 "use client"
 
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useEffect, useRef, Suspense } from "react"
 import Globe, { GlobeMethods } from "react-globe.gl";
 
 
 export function Earth() {
   const globeEl = useRef<GlobeMethods | undefined>(undefined);
+
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     if (!globeEl.current) return;
@@ -38,8 +41,8 @@ export function Earth() {
           bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
           backgroundColor="rgba(0,0,0,0)"
           enablePointerInteraction
-          width={600}
-          height={600}
+          width={isMobile ? 400 :600}
+          height={isMobile ? 400 : 600}
           pointsData={[
             {
               lat: 14.0818,

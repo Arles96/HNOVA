@@ -91,11 +91,12 @@ export default function Home() {
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.8 }}
               className="relative h-[400px] lg:h-[500px]"
-              style={{overflowX: 'hidden'}}
+              style={{overflowX: 'hidden', position: 'relative', overflowY: "hidden"}}
             >
               {/* <div className="absolute inset-0 flex items-center justify-center">
                 <RotatingPlanet />
               </div> */}
+              <div style={{position: 'absolute', top: 0, left: 0, zIndex: 4, width: '100%', height: '100%'}} />
               <Earth />
             </motion.div>
           </div>

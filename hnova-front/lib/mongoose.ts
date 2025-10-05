@@ -27,6 +27,7 @@ if (!global.mongoose) {
 }
 
 async function connectDB(): Promise<typeof mongoose> {
+  console.log(MONGODB_URI, ' conexion')
   if (cached.conn) {
     return cached.conn;
   }
