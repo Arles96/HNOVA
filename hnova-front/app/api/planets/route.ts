@@ -3,23 +3,7 @@ import connectDB from '@/app/lib/mongoose';
 import Exoplanet from '@/app/models/Exoplanet';
 import ProjectModel from '@/app/models/Project';
 import { IExoplanetData, IProject } from '@/lib/utils';
-
-const modelPrediction = async (data: IExoplanetData[]) => {
-  return new Promise<IExoplanetData[]>((resolve) => {
-    setTimeout(() => {
-      const result = data.map((item) => {
-        const newData: IExoplanetData = {
-          ...item,
-          projectId: `${Math.random()}`,
-          isExoplanet: Math.random() > 0.5,
-          percentage: Math.random() * 100,
-        };
-        return newData;
-      });
-      resolve(result);
-    }, 100);
-  });
-}
+import { modelPrediction } from '../modelPrediction';
 
 export async function POST(req: NextRequest) {
   try {
