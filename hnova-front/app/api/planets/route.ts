@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import connectDB from '@/app/lib/mongoose';
-import Exoplanet from '@/app/models/Exoplanet';
-import ProjectModel from '@/app/models/Project';
+import connectDB from '@/lib/mongoose';
+import Exoplanet, { ExoplanetData } from '@/lib/Exoplanet';
+import ProjectModel from '@/lib/Project';
 import { IExoplanetData, IProject } from '@/lib/utils';
 
 const modelPrediction = async (data: IExoplanetData[]) => {
@@ -50,6 +50,7 @@ export async function POST(req: NextRequest) {
     count = exoplanetResult.length;
 
     const response: IProject = {
+      _id: project._id.toString(),
       projectName: body.projectName,
       email: body.email,
       results: resultData,
@@ -81,22 +82,29 @@ export async function GET(req: NextRequest) {
     const planetId = searchParams.get('planetId');
 
     const query: any = {};
+    const queryProject: any = {}
     
     if (projectId) {
       query.projectId = projectId;
+      queryProject._id = projectId
     }
     
     if (planetId) {
       query._id = planetId;
     }
 
-    const exoplanets = await Exoplanet.find(query);
-    const project = await ProjectModel.findOne({ _id: projectId });
+    let exoplanets: ExoplanetData[]  = []
+
+    if (planetId || projectId) {
+      exoplanets = await Exoplanet.find(query);
+    }
+
+    const projects = await ProjectModel.find(queryProject);
 
     return NextResponse.json({
       ok: true,
       data: {
-        project,
+        projects,
         exoplanets,
       },
     }, { status: 200 });

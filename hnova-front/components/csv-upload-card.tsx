@@ -13,7 +13,7 @@ import { resultsCsv } from "@/lib/csv"
 import {v4 as uuidv4 } from 'uuid'
 
 interface CsvUploadCardProps {
-  onSubmit: (data: IProject) => void
+  onSubmit: (data: IProject) => Promise<void>
 }
 
 interface IformData {
@@ -126,12 +126,7 @@ export function CsvUploadCard({ onSubmit }: CsvUploadCardProps) {
     // Mock results
     const results = preview.map((item, i) => ({
       ...item,
-      percentage: 90,
-      isExoplanet: i % 2 === 0,
-      _id: uuidv4()
     }))
-
-    setLoading(false)
 
     /* toast({
       title: "Processing Complete",
@@ -140,11 +135,13 @@ export function CsvUploadCard({ onSubmit }: CsvUploadCardProps) {
    
 
     // For now, just show the first result
-    onSubmit({
+    await onSubmit({
       projectName: formData.projectName,
       email: formData.email,
       results,
     })
+
+    setLoading(false)
   }
 
   const clearFile = () => {
@@ -158,9 +155,7 @@ export function CsvUploadCard({ onSubmit }: CsvUploadCardProps) {
       setErrors((prev) => ({ ...prev, [field]: "" }))
     }
   }
-
-  console.log(errors)
-
+  
   return (
     <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5 }}>
       <Card className="glass-panel p-8 space-y-6">

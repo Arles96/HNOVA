@@ -29,20 +29,23 @@ export default function ProjectOnePage({params}: ProjectOnePageProps) {
 
   const { id } = React.use(params);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("planetArchive")
-      if (stored) {
-        const projects: IProject[] = JSON.parse(stored)
-        const project = projects.find(item => item._id === id)
-        if (project) {
-          setDataProject(project)
-          const data = project.results
-          setArchive(data)
-          setFilteredArchive(data)
-        }
-      }
+  const handleData = async () => {
+    try {
+      const search = new URLSearchParams()
+      search.append('projectId', id)
+      const response = await fetch(`/api/planets?${search}`)
+      const {data}: {data: {projects: IProject[], exoplanets: IExoplanetData[]}} = await response.json()
+      const [project] = data.projects
+      setDataProject(project)
+      setArchive(data.exoplanets)
+      setFilteredArchive(data.exoplanets)
+    } catch (error) {
+      toastr.error('Error to get data.')
     }
+  }
+
+  useEffect(() => {
+    handleData()
   }, [])
 
   useEffect(() => {
@@ -257,7 +260,7 @@ export default function ProjectOnePage({params}: ProjectOnePageProps) {
                               className="gap-2 hover:text-primary"
                               onClick={() => {
                                 sessionStorage.setItem("latestResult", JSON.stringify(item))
-                                window.location.href = `/results/${item._id}`
+                                window.location.href = `/results/${item._id}/project/${item.projectId}`
                               }}
                             >
                               <Eye className="w-4 h-4" />

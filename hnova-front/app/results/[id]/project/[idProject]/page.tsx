@@ -15,7 +15,7 @@ import { IExoplanetData, IProject } from "@/lib/utils"
 import dynamic from "next/dynamic"
 
 interface ResultsPageProps {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string, idProject: string }>
 }
 
 const PlanetVisualization = dynamic(
@@ -27,23 +27,26 @@ export default function ResultsPage({params}: ResultsPageProps) {
   const [result, setResult] = useState<IExoplanetData | null>(null)
   const [project, setProject] = useState<IProject | null>(null)
   const [feedback, setFeedback] = useState<"correct" | "incorrect" | null>(null)
-  const { id } = React.use(params);
+  const { id, idProject } = React.use(params);
+
+  const handleData = async () => {
+    try {
+      const search = new URLSearchParams()
+      search.append('projectId', idProject)
+      search.append('planetId', id)
+      const response = await fetch(`/api/planets?${search}`)
+      const {data}: {data: {projects: IProject[], exoplanets: IExoplanetData[]}} = await response.json()
+      const [project2] = data.projects
+      const [planet] = data.exoplanets
+      setProject(project2)
+      setResult(planet)
+    } catch (error) {
+      toastr.error('Error to get data.')
+    }
+  }
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const projects: IProject[] = JSON.parse(localStorage.getItem("planetArchive") || "[]")
-      let dataResult = null;
-      let projectData = null
-      projects.forEach(item => {
-        const r = item.results?.find(item2 => item2._id === id)
-        if (r) {
-          dataResult = r
-          projectData = item
-        }
-      })
-      setProject(projectData)
-      setResult(dataResult)
-    }
+    handleData()
   }, [])
 
   const handleFeedback = (isCorrect: boolean) => {
@@ -133,18 +136,18 @@ export default function ResultsPage({params}: ResultsPageProps) {
                       {result.isExoplanet ? 'Exoplanet' : 'Not Exoplanet'}
                     </Badge>
                     <Badge className="text-lg px-4 py-2 bg-primary/20 text-primary border-primary/50" variant="outline">
-                      {result.percentage}% Confidence
+                      {result.percentage?.toFixed(2)}% Confidence
                     </Badge>
                   </div>
 
-                  <div className="pt-4 space-y-2">
+                  {/* <div className="pt-4 space-y-2">
                     <h3 className="font-semibold text-muted-foreground">Classification Summary</h3>
                     <p className="text-sm leading-relaxed">
                       {isHabitable
                         ? `Based on the planetary parameters, ${result.kepoiName || 'Unknow'} shows strong indicators of potential habitability. The equilibrium temperature, stellar flux, and orbital characteristics fall within the habitable zone parameters.`
                         : `Analysis indicates ${result.kepoiName || 'Unknow'} does not meet the criteria for habitability. Key factors such as temperature, stellar flux, or orbital parameters fall outside the habitable zone range.`}
                     </p>
-                  </div>
+                  </div> */}
                 </Card>
 
                 {/* Feedback Section */}
@@ -208,7 +211,7 @@ export default function ResultsPage({params}: ResultsPageProps) {
                 </Card>
 
                 {/* Explainability */}
-                <Card className="glass-panel p-6 space-y-4">
+                {/* <Card className="glass-panel p-6 space-y-4">
                   <h3 className="text-xl font-bold">Key Factors</h3>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start gap-2">
@@ -232,7 +235,7 @@ export default function ResultsPage({params}: ResultsPageProps) {
                       </span>
                     </li>
                   </ul>
-                </Card>
+                </Card> */}
 
                 {/* Actions */}
                 <div className="flex gap-4">
