@@ -18,15 +18,19 @@ export default function ProjectPage() {
   const [filteredArchive, setFilteredArchive] = useState<IProject[]>([])
   const [searchQuery, setSearchQuery] = useState("")
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("planetArchive")
-      if (stored) {
-        const data = JSON.parse(stored)
-        setArchive(data)
-        setFilteredArchive(data)
-      }
+  const handleData = async () => {
+    try {
+      const responee = await fetch('/api/planets')
+      const {data}: {data: {projects: IProject[]}} = await responee.json()
+      setArchive(data.projects)
+      setFilteredArchive(data.projects)
+    } catch (error) {
+      toastr.error('Error to get data.')
     }
+  }
+
+  useEffect(() => {
+    handleData()
   }, [])
 
   useEffect(() => {
