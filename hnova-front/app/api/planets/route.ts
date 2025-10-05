@@ -20,28 +20,33 @@ export async function POST(req: NextRequest) {
       email: body.email,
     });
 
-    const projectId = project._id;
+    const projectId = `${project._id}`;
 
     // Then, insert each result from payload.results into Exoplanet
     let exoplanetResult;
     let count = 0;
 
-    console.log('predictions');
-    const resultData: IExoplanetData[] = await modelPrediction(body.results);
-    console.log('predictions end');
-
-    const exoplanetData = resultData.map((item) => ({
+    const formattedData: IExoplanetData[] = body.results.map((item) => ({
       ...item,
       projectId,
     }));
 
-    exoplanetResult = await Exoplanet.insertMany(exoplanetData);
+    console.log('predictions');
+    const resultData: IExoplanetData[] | undefined = await modelPrediction(formattedData);
+    console.log('predictions end');
+
+    const exoplanetData = resultData?.map((item) => ({
+      ...item,
+      projectId,
+    }));
+
+    exoplanetResult = await Exoplanet.insertMany(exoplanetData || []);
     count = exoplanetResult.length;
 
     const response: IProject = {
       projectName: body.projectName,
       email: body.email,
-      results: resultData,
+      results: resultData || [],
       timestamp: project.timestamp?.toISOString(),
     }
 

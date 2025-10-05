@@ -40,8 +40,17 @@ export const modelPrediction = async (instances: IExoplanetData[]) => {
 
     // Make the prediction
     const response = await client.predict({ endpoint, instances: formattedInstances });
-    console.log(JSON.stringify(response, null, 2));
-    return [];
+    const predictions = response?.[0]?.predictions?.map((prediction, index) => {
+      const percentage = (prediction?.structValue?.fields?.scores?.listValue?.values?.[1]?.numberValue || 0) * 100
+      return {
+        ...instances[index],
+        percentage,
+        isExoplanet: percentage > 90,
+        projectId: instances[index].projectId,
+      };
+    });
+    console.log(JSON.stringify(response?.[0], null, 2));
+    return predictions;
   } catch (error) {
     console.error('Error making prediction:', error);
     return [];
