@@ -12,14 +12,17 @@ import { Card } from "@/components/ui/card"
 import { Search, Eye } from "lucide-react"
 import Link from "next/link"
 import { IProject } from "@/lib/utils"
+import { Loader } from "@/components/loader"
 
 export default function ProjectPage() {
   const [archive, setArchive] = useState<IProject[]>([])
   const [filteredArchive, setFilteredArchive] = useState<IProject[]>([])
   const [searchQuery, setSearchQuery] = useState("")
+  const [loading, setLoading] = useState(true)
 
   const handleData = async () => {
     try {
+      setLoading(true)
       const responee = await fetch('/api/planets')
       const {data}: {data: {projects: IProject[]}} = await responee.json()
       setArchive(data.projects)
@@ -27,6 +30,7 @@ export default function ProjectPage() {
     } catch (error) {
       toastr.error('Error to get data.')
     }
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -88,18 +92,24 @@ export default function ProjectPage() {
 
             {/* Results */}
             {filteredArchive.length === 0 ? (
-              <Card className="glass-panel p-12 text-center">
-                <div className="space-y-4">
-                  <div className="w-20 h-20 mx-auto rounded-full bg-primary/20 flex items-center justify-center">
-                    <Search className="w-10 h-10 text-primary" />
-                  </div>
-                  <h3 className="text-2xl font-bold">No records yet</h3>
-                  <p className="text-muted-foreground">Try classifying a planet to see results appear here</p>
-                  <Link href="/classify">
-                    <Button className="bg-primary hover:bg-primary/90">Classify a Planet</Button>
-                  </Link>
-                </div>
-              </Card>
+              <>
+                {
+                  loading ? <Loader /> : (
+                    <Card className="glass-panel p-12 text-center">
+                      <div className="space-y-4">
+                        <div className="w-20 h-20 mx-auto rounded-full bg-primary/20 flex items-center justify-center">
+                          <Search className="w-10 h-10 text-primary" />
+                        </div>
+                        <h3 className="text-2xl font-bold">No records yet</h3>
+                        <p className="text-muted-foreground">Try classifying a planet to see results appear here</p>
+                        <Link href="/classify">
+                          <Button className="bg-primary hover:bg-primary/90">Classify a Planet</Button>
+                        </Link>
+                      </div>
+                    </Card>
+                  )
+                }
+              </>
             ) : (
               <div className="space-y-4">
                 {/* Table Header */}

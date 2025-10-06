@@ -41,8 +41,8 @@ export function Earth() {
           bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
           backgroundColor="rgba(0,0,0,0)"
           enablePointerInteraction
-          width={isMobile ? 400 :600}
-          height={isMobile ? 400 : 600}
+          width={isMobile ? window.innerWidth :600}
+          height={isMobile ? window.innerWidth : 600}
           pointsData={[
             {
               lat: 14.0818,

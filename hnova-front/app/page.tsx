@@ -49,7 +49,7 @@ export default function Home() {
 
       <main className="relative z-10 pt-24">
         {/* Hero Section */}
-        <section className="container mx-auto px-4 py-20">
+        <section className="container mx-auto px-4 py-15">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ x: -50, opacity: 0 }}
@@ -60,11 +60,11 @@ export default function Home() {
               <div className="inline-block px-4 py-2 glass-panel rounded-full text-sm text-primary mb-4">
                 Mission Briefing
               </div>
-              <h1 className="text-5xl md:text-7xl font-bold text-balance leading-tight">
-                HNOVA: AI-Powered <span className="text-primary">Exoplanet</span> Habitability
+              <h1 className="text-5xl md:text-7xl sm:text-1xl font-bold text-balance leading-tight">
+                HNOVA: AI-Powered <span className="text-primary">Exoplanet</span>
               </h1>
               <p className="text-xl text-muted-foreground text-pretty leading-relaxed">
-                Harness the power of machine learning to classify exoplanets and discover potentially habitable worlds
+                Harness the power of machine learning to classify exoplanets and discover potentially exoplanets
                 across the cosmos.
               </p>
               <div className="flex flex-wrap gap-4 pt-4">

@@ -13,6 +13,7 @@ import { ArrowLeft, RotateCw, Archive, ThumbsUp, ThumbsDown, CheckCircle2 } from
 import Link from "next/link"
 import { IExoplanetData, IProject } from "@/lib/utils"
 import dynamic from "next/dynamic"
+import { Loader } from "@/components/loader"
 
 interface ResultsPageProps {
   params: Promise<{ id: string, idProject: string }>
@@ -28,9 +29,11 @@ export default function ResultsPage({params}: ResultsPageProps) {
   const [project, setProject] = useState<IProject | null>(null)
   const [feedback, setFeedback] = useState<"correct" | "incorrect" | null>(null)
   const { id, idProject } = React.use(params);
+  const [loading, setLoading] = useState(true)
 
   const handleData = async () => {
     try {
+      setLoading(true)
       const search = new URLSearchParams()
       search.append('projectId', idProject)
       search.append('planetId', id)
@@ -48,6 +51,7 @@ export default function ResultsPage({params}: ResultsPageProps) {
     } catch (error) {
       toastr.error('Error to get data.')
     }
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -74,6 +78,9 @@ export default function ResultsPage({params}: ResultsPageProps) {
   }
 
   if (!result || !project) {
+    if (loading) {
+      return <Loader />
+    }
     return (
       <div className="min-h-screen relative flex items-center justify-center">
         <StarfieldBg />

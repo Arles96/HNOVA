@@ -11,10 +11,12 @@ import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Search, Download, Eye, Filter, Calendar } from "lucide-react"
+import { Search, Download, Eye, Filter, LoaderCircle } from "lucide-react"
 import Link from "next/link"
 import { MiniPlanet } from "@/components/mini-planet"
 import {IExoplanetData, IProject} from '@/lib/utils';
+import { downloadCsv, objectsToCsv } from "@/lib/csv"
+import { Loader } from "@/components/loader"
 
 interface ProjectOnePageProps {
   params: Promise<{ id: string }>
@@ -26,11 +28,13 @@ export default function ProjectOnePage({params}: ProjectOnePageProps) {
   const [dataProject, setDataProject] = useState<IProject | undefined>()
   const [searchQuery, setSearchQuery] = useState("")
   const [statusFilter, setStatusFilter] = useState("all")
+  const [loading, setLoading] = useState(false)
 
   const { id } = React.use(params);
 
   const handleData = async () => {
     try {
+      setLoading(true)
       const search = new URLSearchParams()
       search.append('projectId', id)
       const response = await fetch(`/api/planets?${search}`)
@@ -42,6 +46,7 @@ export default function ProjectOnePage({params}: ProjectOnePageProps) {
     } catch (error) {
       toastr.error('Error to get data.')
     }
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -74,25 +79,9 @@ export default function ProjectOnePage({params}: ProjectOnePageProps) {
   }, [searchQuery, statusFilter, archive])
 
   const handleDownloadCSV = () => {
-    /* if (filteredArchive.length === 0) return
-
-    const headers = ["Planet Name", "Prediction", "Confidence", "Temperature", "Star Type", "Created At"]
-    const rows = filteredArchive.map((item) => [
-      item.planetName,
-      item.prediction,
-      `${item.confidence}%`,
-      item.inputs?.temperature || "N/A",
-      item.inputs?.starType || "N/A",
-      new Date(item.timestamp).toLocaleString(),
-    ])
-
-    const csv = [headers, ...rows].map((row) => row.join(",")).join("\n")
-    const blob = new Blob([csv], { type: "text/csv" })
-    const url = window.URL.createObjectURL(blob)
-    const a = document.createElement("a")
-    a.href = url
-    a.download = "hnova-archive.csv"
-    a.click() */
+    if (filteredArchive.length === 0) return
+    const download = objectsToCsv(filteredArchive)
+    downloadCsv(`${dataProject?.projectName}.csv`, download)
   }
 
   return (
@@ -160,18 +149,24 @@ export default function ProjectOnePage({params}: ProjectOnePageProps) {
 
             {/* Results */}
             {filteredArchive.length === 0 ? (
-              <Card className="glass-panel p-12 text-center">
-                <div className="space-y-4">
-                  <div className="w-20 h-20 mx-auto rounded-full bg-primary/20 flex items-center justify-center">
-                    <Search className="w-10 h-10 text-primary" />
-                  </div>
-                  <h3 className="text-2xl font-bold">No records yet</h3>
-                  <p className="text-muted-foreground">Try classifying a planet to see results appear here</p>
-                  <Link href="/classify">
-                    <Button className="bg-primary hover:bg-primary/90">Classify a Planet</Button>
-                  </Link>
-                </div>
-              </Card>
+              <>
+                {
+                  loading ? <Loader /> : (
+                    <Card className="glass-panel p-12 text-center">
+                      <div className="space-y-4">
+                        <div className="w-20 h-20 mx-auto rounded-full bg-primary/20 flex items-center justify-center">
+                          <Search className="w-10 h-10 text-primary" />
+                        </div>
+                        <h3 className="text-2xl font-bold">No records yet</h3>
+                        <p className="text-muted-foreground">Try classifying a planet to see results appear here</p>
+                        <Link href="/classify">
+                          <Button className="bg-primary hover:bg-primary/90">Classify a Planet</Button>
+                        </Link>
+                      </div>
+                    </Card>
+                  )
+                }
+              </>
             ) : (
               <div className="space-y-4">
                 {/* Table Header */}
