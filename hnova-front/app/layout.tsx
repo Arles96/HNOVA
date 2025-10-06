@@ -8,7 +8,7 @@ import "./globals.css"
 import "toastr/build/toastr.min.css"
 
 export const metadata: Metadata = {
-  title: "HNOVA - AI-Powered Exoplanet Habitability",
+  title: "HNOVA - AI-Powered Exoplanet Discovery",
   description: "Classify exoplanets and discover potential exoplanets using machine learning",
   generator: "v0.app",
 }
