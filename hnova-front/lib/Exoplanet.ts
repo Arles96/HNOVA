@@ -181,7 +181,7 @@ const ExoplanetSchema = new Schema<ExoplanetData>({
 
   dispositionScore: { type: Number },
   modelSnr: { type: Number },
-  tcePlanetNumber: { type: Number },
+  tcePlanetNumber: { type: Number }
 }, {
   collection: 'exoplanets',
   timestamps: true

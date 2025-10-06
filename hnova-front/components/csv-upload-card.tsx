@@ -236,7 +236,7 @@ export function CsvUploadCard({ onSubmit }: CsvUploadCardProps) {
               onClick={handleProcess}
               disabled={loading}
               size="lg"
-              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+              className={`w-full bg-primary hover:bg-primary/90 text-primary-foreground ${loading ? "cursor-not-allowed" : "cursor-pointer"}`}
             >
               {loading ? (
                 <>
