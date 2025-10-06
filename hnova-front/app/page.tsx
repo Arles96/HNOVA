@@ -64,7 +64,7 @@ export default function Home() {
                 HNOVA: AI-Powered <span className="text-primary">Exoplanet</span>
               </h1>
               <p className="text-xl text-muted-foreground text-pretty leading-relaxed">
-                Harness the power of machine learning to classify exoplanets and discover potentially exoplanets
+                Harness the power of machine learning to classify exoplanets and discover potential exoplanets
                 across the cosmos.
               </p>
               <div className="flex flex-wrap gap-4 pt-4">
