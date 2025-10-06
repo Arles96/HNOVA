@@ -43,7 +43,7 @@ export default function ResultsPage() {
         <div className="text-center space-y-4">
           <p className="text-xl text-muted-foreground">No classification results found</p>
           <Link href="/classify">
-            <Button className="bg-primary hover:bg-primary/90">Classify a Planet</Button>
+            <Button className="bg-primary hover:bg-primary/90 cursor-pointer">Classify a Planet</Button>
           </Link>
         </div>
       </div>
