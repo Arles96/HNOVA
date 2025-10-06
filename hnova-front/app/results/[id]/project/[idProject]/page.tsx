@@ -185,7 +185,7 @@ export default function ResultsPage({params}: ResultsPageProps) {
                     <div className="flex gap-4">
                       <Button
                         onClick={() => handleFeedback(true)}
-                        className="flex-1 bg-accent-green/20 hover:bg-accent-green/30 text-accent-green border border-accent-green/50 gap-2"
+                        className="flex-1 bg-accent-green/20 hover:bg-accent-green/30 text-accent-green border border-accent-green/50 gap-2 cursor-pointer"
                         variant="outline"
                       >
                         <ThumbsUp className="w-5 h-5" />
@@ -193,7 +193,7 @@ export default function ResultsPage({params}: ResultsPageProps) {
                       </Button>
                       <Button
                         onClick={() => handleFeedback(false)}
-                        className="flex-1 bg-destructive/20 hover:bg-destructive/30 text-destructive border border-destructive/50 gap-2"
+                        className="flex-1 bg-destructive/20 hover:bg-destructive/30 text-destructive border border-destructive/50 gap-2 cursor-pointer"
                         variant="outline"
                       >
                         <ThumbsDown className="w-5 h-5" />
@@ -266,7 +266,7 @@ export default function ResultsPage({params}: ResultsPageProps) {
                 {/* Actions */}
                 <div className="flex gap-4">
                   <Link href="/classify" className="flex-1">
-                    <Button className="w-full bg-primary hover:bg-primary/90 gap-2">
+                    <Button className="w-full bg-primary hover:bg-primary/90 gap-2 cursor-pointer">
                       <RotateCw className="w-4 h-4" />
                       Classify Another
                     </Button>
