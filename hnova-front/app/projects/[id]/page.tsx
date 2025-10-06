@@ -233,7 +233,7 @@ export default function ProjectOnePage({params}: ProjectOnePageProps) {
                                   style={{ width: `${item.percentage}%` }}
                                 />
                               </div>
-                              <span className="text-sm font-semibold">{item.percentage}%</span>
+                              <span className="text-sm font-semibold">{item.percentage?.toFixed(2)}%</span>
                             </div>
                           </div>
 
