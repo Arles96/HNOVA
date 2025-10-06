@@ -61,10 +61,10 @@ export default function ResultsPage({params}: ResultsPageProps) {
       search.append('planetId', result?._id || '')
       await fetch(`/api/planets?${search}`, {
         method: 'PATCH',
-        body: {
-          // @ts-ignore
-          feedbackIsPlanet: isCorrect,
-        }
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({feedbackIsPlanet: isCorrect})
       })
       toastr.success('Success')
       handleData()
