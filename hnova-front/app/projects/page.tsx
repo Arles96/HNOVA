@@ -159,7 +159,7 @@ export default function ProjectPage() {
                             <Button
                               size="sm"
                               variant="ghost"
-                              className="gap-2 hover:text-primary"
+                              className="gap-2 hover:text-primary cursor-pointer"
                               onClick={() => {
                                 window.location.href = `/projects/${item._id}`
                               }}
