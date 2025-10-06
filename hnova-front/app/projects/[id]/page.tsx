@@ -244,7 +244,7 @@ export default function ProjectOnePage({params}: ProjectOnePageProps) {
 
                           {/* Created */}
                           <div className="col-span-1 md:col-span-2 text-sm text-muted-foreground">
-                            {item.timestamp ? new Date(item.timestamp).toLocaleDateString() : 'N/A'}
+                            {item.createdAt ? new Date(item.createdAt).toLocaleDateString() : 'N/A'}
                           </div>
 
                           {/* Action */}
