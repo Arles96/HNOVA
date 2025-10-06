@@ -206,11 +206,12 @@ export default function Home() {
               </p>
             </motion.div>
 
-            <div className="grid md:grid-cols-4 gap-6">
+            <div className="grid md:grid-cols-3 gap-6">
               {[
-                { label: "Accuracy", value: "94.2%", icon: Target },
-                { label: "Precision", value: "92.8%", icon: Zap },
-                { label: "Recall", value: "93.5%", icon: TrendingUp },
+                { label: "Accuracy negative", value: "97%", icon: Target },
+                { label: "Accuracy positive", value: "93%", icon: Target },
+                { label: "Precision", value: "95.161%", icon: Zap },
+                { label: "Recall", value: "95.624%", icon: TrendingUp },
                 { label: "F1 Score", value: "93.1%", icon: Database },
               ].map((metric, index) => (
                 <motion.div key={index} variants={itemVariants}>
