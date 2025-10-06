@@ -1,0 +1,280 @@
+type: object
+properties:
+  hostName:
+    nullable: true
+    type: string
+  orbitalPeriod:
+    nullable: true
+    type: number
+  orbitalPeriodMin:
+    nullable: true
+    type: number
+  orbitalPeriodMax:
+    nullable: true
+    type: number
+  transitDuration:
+    nullable: true
+    type: number
+  transitDurationMin:
+    nullable: true
+    type: number
+  transitDurationMax:
+    nullable: true
+    type: number
+  transitDepth:
+    nullable: true
+    type: number
+  transitDepthMin:
+    nullable: true
+    type: number
+  transitDepthMax:
+    nullable: true
+    type: number
+  impactParameter:
+    nullable: true
+    type: number
+  impactParameterMin:
+    nullable: true
+    type: number
+  impactParameterMax:
+    nullable: true
+    type: number
+  planetRadiusEarth:
+    nullable: true
+    type: number
+  planetRadiusEarthMin:
+    nullable: true
+    type: number
+  planetRadiusEarthMax:
+    nullable: true
+    type: number
+  planetRadiusJupiter:
+    nullable: true
+    type: number
+  planetRadiusJupiterMin:
+    nullable: true
+    type: number
+  planetRadiusJupiterMax:
+    nullable: true
+    type: number
+  planetMassEarth:
+    nullable: true
+    type: number
+  planetMassEarthMin:
+    nullable: true
+    type: number
+  planetMassEarthMax:
+    nullable: true
+    type: number
+  planetMassJupiter:
+    nullable: true
+    type: number
+  planetMassJupiterMin:
+    nullable: true
+    type: number
+  planetMassJupiterMax:
+    nullable: true
+    type: number
+  planetDensity:
+    nullable: true
+    type: number
+  planetDensityMin:
+    nullable: true
+    type: number
+  planetDensityMax:
+    nullable: true
+    type: number
+  equilibriumTemperature:
+    nullable: true
+    type: number
+  equilibriumTemperatureMin:
+    nullable: true
+    type: number
+  equilibriumTemperatureMax:
+    nullable: true
+    type: number
+  insolationFlux:
+    nullable: true
+    type: number
+  insolationFluxMin:
+    nullable: true
+    type: number
+  insolationFluxMax:
+    nullable: true
+    type: number
+  stellarEffectiveTemperature:
+    nullable: true
+    type: number
+  stellarEffectiveTemperatureMin:
+    nullable: true
+    type: number
+  stellarEffectiveTemperatureMax:
+    nullable: true
+    type: number
+  stellarSurfaceGravity:
+    nullable: true
+    type: number
+  stellarSurfaceGravityMin:
+    nullable: true
+    type: number
+  stellarSurfaceGravityMax:
+    nullable: true
+    type: number
+  stellarRadius:
+    nullable: true
+    type: number
+  stellarRadiusMin:
+    nullable: true
+    type: number
+  stellarRadiusMax:
+    nullable: true
+    type: number
+  stellarMass:
+    nullable: true
+    type: number
+  stellarMassMin:
+    nullable: true
+    type: number
+  stellarMassMax:
+    nullable: true
+    type: number
+  stellarMetallicity:
+    nullable: true
+    type: number
+  stellarMetallicityMin:
+    nullable: true
+    type: number
+  stellarMetallicityMax:
+    nullable: true
+    type: number
+  stellarAge:
+    nullable: true
+    type: number
+  stellarAgeMin:
+    nullable: true
+    type: number
+  stellarAgeMax:
+    nullable: true
+    type: number
+  rightAscension:
+    nullable: true
+    type: number
+  declination:
+    nullable: true
+    type: number
+  magnitude:
+    nullable: true
+    type: number
+required:
+- hostName
+- orbitalPeriod
+- orbitalPeriodMin
+- orbitalPeriodMax
+- transitDuration
+- transitDurationMin
+- transitDurationMax
+- transitDepth
+- transitDepthMin
+- transitDepthMax
+- impactParameter
+- impactParameterMin
+- impactParameterMax
+- planetRadiusEarth
+- planetRadiusEarthMin
+- planetRadiusEarthMax
+- planetRadiusJupiter
+- planetRadiusJupiterMin
+- planetRadiusJupiterMax
+- planetMassEarth
+- planetMassEarthMin
+- planetMassEarthMax
+- planetMassJupiter
+- planetMassJupiterMin
+- planetMassJupiterMax
+- planetDensity
+- planetDensityMin
+- planetDensityMax
+- equilibriumTemperature
+- equilibriumTemperatureMin
+- equilibriumTemperatureMax
+- insolationFlux
+- insolationFluxMin
+- insolationFluxMax
+- stellarEffectiveTemperature
+- stellarEffectiveTemperatureMin
+- stellarEffectiveTemperatureMax
+- stellarSurfaceGravity
+- stellarSurfaceGravityMin
+- stellarSurfaceGravityMax
+- stellarRadius
+- stellarRadiusMin
+- stellarRadiusMax
+- stellarMass
+- stellarMassMin
+- stellarMassMax
+- stellarMetallicity
+- stellarMetallicityMin
+- stellarMetallicityMax
+- stellarAge
+- stellarAgeMin
+- stellarAgeMax
+- rightAscension
+- declination
+- magnitude
+nullable: true
+example:
+  hostName: EPIC
+  orbitalPeriod: 8.56222
+  orbitalPeriodMin: 7.51e-05
+  orbitalPeriodMax: -7.42e-05
+  transitDuration: 3.514
+  transitDurationMin: 0.144
+  transitDurationMax: -0.149
+  transitDepth: 250.0
+  transitDepthMin: 16.5
+  transitDepthMax: -16.4
+  impactParameter: 0.505
+  impactParameterMin: 0.19
+  impactParameterMax: -0.217
+  planetRadiusEarth: 2.42
+  planetRadiusEarthMin: 0.41
+  planetRadiusEarthMax: -0.273
+  planetRadiusJupiter: 0.23151079
+  planetRadiusJupiterMin: 0.023
+  planetRadiusJupiterMax: -0.02408779
+  planetMassEarth: 12.1
+  planetMassEarthMin: 3.0
+  planetMassEarthMax: -2.9
+  planetMassJupiter: 0.03807067
+  planetMassJupiterMin: 0.00943906
+  planetMassJupiterMax: -0.00912442
+  planetDensity: 2.69
+  planetDensityMin: 0.64
+  planetDensityMax: -0.55
+  equilibriumTemperature: 850.0
+  equilibriumTemperatureMin: 19.0
+  equilibriumTemperatureMax: -19.0
+  insolationFlux: 120.48
+  insolationFluxMin: 54.83
+  insolationFluxMax: -31.74
+  stellarEffectiveTemperature: 5640.0
+  stellarEffectiveTemperatureMin: 145.0
+  stellarEffectiveTemperatureMax: -143.0
+  stellarSurfaceGravity: 4.44514
+  stellarSurfaceGravityMin: 0.072
+  stellarSurfaceGravityMax: -0.112
+  stellarRadius: 0.966
+  stellarRadiusMin: 0.174
+  stellarRadiusMax: -0.086
+  stellarMass: 0.88
+  stellarMassMin: 0.05
+  stellarMassMax: -0.05
+  stellarMetallicity: -0.01
+  stellarMetallicityMin: 0.08
+  stellarMetallicityMax: -0.08
+  stellarAge: 4.7
+  stellarAgeMin: 1.7
+  stellarAgeMax: -1.3
+  rightAscension: 290.1449
+  declination: 40.958931
+  magnitude: 13.771

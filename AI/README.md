@@ -18,16 +18,25 @@ The model was exported from Vertex AI and is included in this directory in the T
 
 ## Files
 
-- `model/`: This directory contains the exported TensorFlow model.
-  - `saved_model.pb`: The main model file containing the graph definition.
-  - `variables/`: Directory containing the learned weights of the model.
-  - `assets/`: Directory containing vocabulary files used by the model for categorical features.
+- `model/`: This directory contains the exported TensorFlow model and its associated metadata.
+  - `predict/`: The core TensorFlow SavedModel directory.
+    - `saved_model.pb`: The main model file containing the graph definition.
+    - `variables/`: Directory containing the learned weights of the model.
+    - `assets/`: Directory containing vocabulary files for categorical features.
+  - `environment.json`: Metadata about the training environment.
+  - `feature_attributions.yaml`: Information on feature importance.
+  - `instance.yaml`: A sample input instance for prediction.
+  - `prediction_schema.yaml`: The schema for prediction input and output.
+  - `*.pb`: Other protocol buffer files containing model structure and transformations.
 - `bigQuery/`:
   - `data.csv`: The original dataset used for training.
   - `dataBalanced.csv`: A balanced version of the dataset to handle class imbalance.
 
 ## Usage
 
-The model is loaded and used in the `hnova-front` application to make predictions. The Next.js backend has an API endpoint that receives data, preprocesses it to match the model's expected input format, and then calls the model to get a classification prediction.
+The primary way this model is consumed is through a REST API endpoint deployed on **Google Cloud Vertex AI**. The `hnova-front` application sends prediction requests to this endpoint to get classifications.
 
-For details on how the model is used in the application, refer to the `hnova-front/app/api/modelPrediction.ts` file.
+The model files included in this directory (`/model`) represent the exported TensorFlow SavedModel. While they can be used for local testing, inspection, or redeployment, the live application relies on the deployed Vertex AI endpoint for scalability and performance.
+
+The logic for making requests to the Vertex AI API from the frontend application can be found in `hnova-front/app/api/modelPrediction.ts`.
+
