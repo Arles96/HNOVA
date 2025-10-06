@@ -74,7 +74,7 @@ export default function Home() {
                     <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
-                <Link href="/results">
+                <Link href="/projects">
                   <Button
                     size="lg"
                     variant="outline"
