@@ -1,0 +1,112 @@
+type: object
+properties:
+  hostName:
+    type: number
+  orbitalPeriod:
+    type: number
+  orbitalPeriodMin:
+    type: number
+  orbitalPeriodMax:
+    type: number
+  transitDuration:
+    type: number
+  transitDurationMin:
+    type: number
+  transitDurationMax:
+    type: number
+  transitDepth:
+    type: number
+  transitDepthMin:
+    type: number
+  transitDepthMax:
+    type: number
+  impactParameter:
+    type: number
+  impactParameterMin:
+    type: number
+  impactParameterMax:
+    type: number
+  planetRadiusEarth:
+    type: number
+  planetRadiusEarthMin:
+    type: number
+  planetRadiusEarthMax:
+    type: number
+  planetRadiusJupiter:
+    type: number
+  planetRadiusJupiterMin:
+    type: number
+  planetRadiusJupiterMax:
+    type: number
+  planetMassEarth:
+    type: number
+  planetMassEarthMin:
+    type: number
+  planetMassEarthMax:
+    type: number
+  planetMassJupiter:
+    type: number
+  planetMassJupiterMin:
+    type: number
+  planetMassJupiterMax:
+    type: number
+  planetDensity:
+    type: number
+  planetDensityMin:
+    type: number
+  planetDensityMax:
+    type: number
+  equilibriumTemperature:
+    type: number
+  equilibriumTemperatureMin:
+    type: number
+  equilibriumTemperatureMax:
+    type: number
+  insolationFlux:
+    type: number
+  insolationFluxMin:
+    type: number
+  insolationFluxMax:
+    type: number
+  stellarEffectiveTemperature:
+    type: number
+  stellarEffectiveTemperatureMin:
+    type: number
+  stellarEffectiveTemperatureMax:
+    type: number
+  stellarSurfaceGravity:
+    type: number
+  stellarSurfaceGravityMin:
+    type: number
+  stellarSurfaceGravityMax:
+    type: number
+  stellarRadius:
+    type: number
+  stellarRadiusMin:
+    type: number
+  stellarRadiusMax:
+    type: number
+  stellarMass:
+    type: number
+  stellarMassMin:
+    type: number
+  stellarMassMax:
+    type: number
+  stellarMetallicity:
+    type: number
+  stellarMetallicityMin:
+    type: number
+  stellarMetallicityMax:
+    type: number
+  stellarAge:
+    type: number
+  stellarAgeMin:
+    type: number
+  stellarAgeMax:
+    type: number
+  rightAscension:
+    type: number
+  declination:
+    type: number
+  magnitude:
+    type: number
