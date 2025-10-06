@@ -61,7 +61,7 @@ export default function Home() {
                 Mission Briefing
               </div>
               <h1 className="text-5xl md:text-7xl sm:text-1xl font-bold text-balance leading-tight">
-                HNOVA: AI-Powered <span className="text-primary">Exoplanet</span>
+                HNOVA: AI-Powered <span className="text-primary">Exoplanets</span>
               </h1>
               <p className="text-xl text-muted-foreground text-pretty leading-relaxed">
                 Harness the power of machine learning to classify exoplanets and discover potential exoplanets
