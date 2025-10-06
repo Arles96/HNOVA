@@ -37,8 +37,8 @@ export const modelPrediction = async (instances: IExoplanetData[]) => {
     }));
 
     // Make the prediction
-    const response = await client.predict({ endpoint, instances: formattedInstances });
-    const predictions = response?.[0]?.predictions?.map((prediction, index) => {
+    const [response] = await client.predict({ endpoint, instances: formattedInstances });
+    const predictions = response?.predictions?.map((prediction, index) => {
       const percentage0 = (prediction?.structValue?.fields?.scores?.listValue?.values?.[0]?.numberValue || 0) * 100;
       const percentage1 = (prediction?.structValue?.fields?.scores?.listValue?.values?.[1]?.numberValue || 0) * 100;
       const percentage = percentage0 > percentage1 ? percentage0 : percentage1;
