@@ -69,7 +69,7 @@ export default function Home() {
               </p>
               <div className="flex flex-wrap gap-4 pt-4">
                 <Link href="/classify">
-                  <Button size="lg" className="group bg-primary hover:bg-primary/90 text-primary-foreground">
+                  <Button size="lg" className="group bg-primary hover:bg-primary/90 text-primary-foreground cursor-pointer">
                     Classify a Planet
                     <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
@@ -78,7 +78,7 @@ export default function Home() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="glass-panel border-primary/30 hover:border-primary/50 bg-transparent"
+                    className="glass-panel border-primary/30 hover:border-primary/50 bg-transparent cursor-pointer"
                   >
                     View Results
                   </Button>
@@ -242,7 +242,7 @@ export default function Home() {
                   Start classifying exoplanets and contribute to the search for habitable worlds
                 </p>
                 <Link href="/classify">
-                  <Button size="lg" className="group bg-primary hover:bg-primary/90 text-primary-foreground">
+                  <Button size="lg" className="group bg-primary hover:bg-primary/90 text-primary-foreground cursor-pointer">
                     Classify a Planet Now
                     <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Button>

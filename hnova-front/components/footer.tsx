@@ -5,14 +5,8 @@ export function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-muted-foreground text-sm">HNOVA: Exploring the cosmos, one planet at a time</p>
           <div className="flex gap-6">
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">
+            <a href="https://github.com/Arles96/HNOVA" className="text-muted-foreground hover:text-primary transition-colors text-sm">
               GitHub
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-              Twitter
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-              Discord
             </a>
           </div>
         </div>

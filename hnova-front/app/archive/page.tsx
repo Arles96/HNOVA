@@ -166,7 +166,7 @@ export default function ArchivePage() {
                   <h3 className="text-2xl font-bold">No records yet</h3>
                   <p className="text-muted-foreground">Try classifying a planet to see results appear here</p>
                   <Link href="/classify">
-                    <Button className="bg-primary hover:bg-primary/90">Classify a Planet</Button>
+                    <Button className="bg-primary hover:bg-primary/90 cursor-pointer">Classify a Planet</Button>
                   </Link>
                 </div>
               </Card>
