@@ -136,3 +136,69 @@ export const resultsCsv = (lines: string[], headers: string[]): IExoplanetData[]
   })
   return previewData
 }
+
+// objects-to-csv.ts
+export type LineEnding = "\n" | "\r\n";
+
+export interface SimpleCsvOptions {
+  delimiter?: string;       // default: ","
+  includeHeader?: boolean;  // default: true
+  bom?: boolean;            // default: false (útil para Excel)
+  lineEnding?: LineEnding;  // default: "\n"
+  nullAsEmpty?: boolean;    // default: true
+}
+
+export function objectsToCsv(
+  rows: Array<Record<string, any>>,
+  options: SimpleCsvOptions = {}
+): string {
+  const {
+    delimiter = ",",
+    includeHeader = true,
+    bom = false,
+    lineEnding = "\n",
+    nullAsEmpty = true,
+  } = options;
+
+  if (!rows || rows.length === 0) return bom ? "\uFEFF" : "";
+
+  // 1) Columnas = unión de todas las llaves presentes en las filas
+  const colSet = new Set<string>();
+  for (const r of rows) Object.keys(r ?? {}).forEach(k => colSet.add(k));
+  const cols = Array.from(colSet);
+
+  // 2) Escapar valores al formato CSV
+  const esc = (val: unknown): string => {
+    if (val === null || val === undefined) return nullAsEmpty ? "" : String(val);
+    let s = val instanceof Date ? val.toISOString()
+                                : typeof val === "object" ? JSON.stringify(val)
+                                : String(val);
+    const mustQuote = s.includes('"') || s.includes(delimiter) || s.includes("\n") || s.includes("\r");
+    if (mustQuote) s = `"${s.replace(/"/g, '""')}"`;
+    return s;
+  };
+
+  const lines: string[] = [];
+  if (includeHeader) lines.push(cols.map(esc).join(delimiter));
+
+  for (const row of rows) {
+    const line = cols.map(c => esc((row as any)[c])).join(delimiter);
+    lines.push(line);
+  }
+
+  const csv = lines.join(lineEnding);
+  return bom ? "\uFEFF" + csv : csv;
+}
+
+/** Descarga en navegador */
+export function downloadCsv(filename: string, csvContent: string) {
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename.endsWith(".csv") ? filename : `${filename}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
