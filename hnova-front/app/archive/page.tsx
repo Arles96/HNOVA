@@ -255,7 +255,7 @@ export default function ArchivePage() {
                             <Button
                               size="sm"
                               variant="ghost"
-                              className="gap-2 hover:text-primary"
+                              className="gap-2 hover:text-primary cursor-pointer"
                               onClick={() => {
                                 sessionStorage.setItem("latestResult", JSON.stringify(item))
                                 window.location.href = "/results"

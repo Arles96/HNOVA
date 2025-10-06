@@ -252,7 +252,7 @@ export default function ProjectOnePage({params}: ProjectOnePageProps) {
                             <Button
                               size="sm"
                               variant="ghost"
-                              className="gap-2 hover:text-primary"
+                              className="gap-2 hover:text-primary cursor-pointer"
                               onClick={() => {
                                 sessionStorage.setItem("latestResult", JSON.stringify(item))
                                 window.location.href = `/results/${item._id}/project/${item.projectId}`
