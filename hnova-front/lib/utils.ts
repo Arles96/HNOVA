@@ -98,6 +98,7 @@ export interface IExoplanetData {
   tcePlanetNumber?: number;
   
   timestamp?: string;
+  createdAt?: string;
 }
 
 export const CSV_FIELD_CATEGORIES = [
@@ -323,7 +324,9 @@ export enum ExoplanetFieldEnum {
 
   dispositionScore = "dispositionScore",
   modelSnr = "modelSnr",
-  tcePlanetNumber = "tcePlanetNumber"
+  tcePlanetNumber = "tcePlanetNumber",
+
+  createdAt = "createdAt"
 }
 
 export interface IProject {
@@ -331,5 +334,6 @@ export interface IProject {
   projectName: string
   email: string
   results: IExoplanetData[]
-  timestamp?: string
+  timestamp?: string,
+  createdAt?: string
 }
