@@ -97,7 +97,7 @@ export interface IExoplanetData {
   modelSnr?: number;
   tcePlanetNumber?: number;
   
-  timestamp?: string
+  timestamp?: string;
 }
 
 export const CSV_FIELD_CATEGORIES = [
